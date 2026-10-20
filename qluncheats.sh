@@ -1,12 +1,13 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 AZUL="\e[34m"
+R="\e[31m"
 N="\e[0m"
 
 banner() {
     clear
     echo -e "${AZUL}"
-    cat << 'EOF'
+    cat << 'BANNER'
 < qlun cheats >
  ------------
     \
@@ -25,7 +26,7 @@ banner() {
  | | | | |   | | |  \| | | |   | |_| |  _|   / _ \ | | \___ \
  | |_| | |___| |_| |\  | | |___|  _  | |___ / ___ \| |  ___) |
   \__\_\\____/|_|_| \_|  \____|_| |_|_____/_/   \_\_| |____/
-EOF
+BANNER
     echo -e "${N}"
 }
 
@@ -41,7 +42,7 @@ while true; do
     echo -e "  ${AZUL}[6]${N} 🧰 Utilidades"
     echo -e "  ${AZUL}[7]${N} 🎨 Gerador de Imagens IA"
     echo -e "  ${AZUL}[8]${N} 🚫 Anti-Keller (Bloqueador)"
-    echo -e "  ${AZUL}[9]${N} 🛡️ Bypass"
+    echo -e "  ${AZUL}[9]${N} 🛡️ Bypass ss"
     echo -e "  ${AZUL}[0]${N} 🚪 Sair"
     echo -e "  ${AZUL}─────────────────────────────────────────${N}"
     read -p "  ➜ Opcao: " opt
@@ -55,8 +56,15 @@ while true; do
         6) bash modules/utilidades.sh ;;
         7) bash modules/imagens.sh ;;
         8) bash modules/antikelly.sh ;;
-        9) bash modules/privado.sh ;;
+        9) 
+            if [ -f "modules/privado.sh" ]; then
+                bash modules/privado.sh
+            else
+                echo -e "\n  ${R}[!] OPS! Modulo Privado nao instalado.${N}"
+                read -p "  Pressione Enter para voltar..."
+            fi
+            ;;
         0) echo -e "\n  ${AZUL}Falou! 👋${N}"; exit 0 ;;
-        *) echo -e "\n  ${R}[!] OPS! Opcao invalida.${N}"; read -p "  Pressione Enter para tentar de novo..." ;;
+        *) echo -e "\n  ${R}[!] OPS! Opcao invalida.${N}"; read -p "  Pressione Enter..." ;;
     esac
 done
